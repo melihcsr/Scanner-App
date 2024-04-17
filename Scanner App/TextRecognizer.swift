@@ -21,14 +21,14 @@ final class TextRecognizer{
                 self.cameraScan.imageOfPage(at: $0).cgImage
             })
             let imagesAndRequests = images.map({(image: $0, request:VNRecognizeTextRequest())})
-            let textPerPage = imagesAndRequests.map{image,request->String in
+            let textPerPage = imagesAndRequests.map { image, request -> String in
                 let handler = VNImageRequestHandler(cgImage: image, options: [:])
-                do{
+                do {
                     try handler.perform([request])
-                    guard let observations = request.results as? [VNRecognizedTextObservation] else{return ""}
-                    return observations.compactMap({$0.topCandidates(1).first?.string}).joined(separator: "\n")
-                }
-                catch{
+                    guard let observations = request.results as? [VNRecognizedTextObservation] else { return "" }
+                    // Use a single space as a separator instead of a new line
+                    return observations.compactMap { $0.topCandidates(1).first?.string }.joined(separator: " ")
+                } catch {
                     print(error)
                     return ""
                 }

@@ -14,6 +14,8 @@
 		77130A4A2BCED8C200091758 /* ScanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A492BCED8C200091758 /* ScanData.swift */; };
 		77130A4C2BCED8ED00091758 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A4B2BCED8ED00091758 /* ScannerView.swift */; };
 		77130A4E2BCED90100091758 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A4D2BCED90100091758 /* TextRecognizer.swift */; };
+		77B896A82BD00B9B00098A45 /* CoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B896A72BD00B9B00098A45 /* CoreDataViewModel.swift */; };
+		77B896AC2BD00CAB00098A45 /* ScannedContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77B896AA2BD00CAB00098A45 /* ScannedContainer.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		77130A4B2BCED8ED00091758 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		77130A4D2BCED90100091758 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
 		77130A4F2BCED9A000091758 /* Scanner-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Scanner-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		77B896A72BD00B9B00098A45 /* CoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModel.swift; sourceTree = "<group>"; };
+		77B896AB2BD00CAB00098A45 /* ScannedContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScannedContainer.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 		77130A3A2BCED86C00091758 /* Scanner App */ = {
 			isa = PBXGroup;
 			children = (
+				77B896A92BD00C8700098A45 /* Data */,
+				77B896A62BD00B7C00098A45 /* ViewModels */,
 				77130A4F2BCED9A000091758 /* Scanner-App-Info.plist */,
 				77130A3B2BCED86C00091758 /* Scanner_AppApp.swift */,
 				77130A3D2BCED86C00091758 /* ContentView.swift */,
@@ -76,6 +82,22 @@
 				77130A422BCED86D00091758 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		77B896A62BD00B7C00098A45 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				77B896A72BD00B9B00098A45 /* CoreDataViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		77B896A92BD00C8700098A45 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				77B896AA2BD00CAB00098A45 /* ScannedContainer.xcdatamodeld */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,8 +171,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				77130A3E2BCED86C00091758 /* ContentView.swift in Sources */,
+				77B896AC2BD00CAB00098A45 /* ScannedContainer.xcdatamodeld in Sources */,
 				77130A4C2BCED8ED00091758 /* ScannerView.swift in Sources */,
 				77130A4E2BCED90100091758 /* TextRecognizer.swift in Sources */,
+				77B896A82BD00B9B00098A45 /* CoreDataViewModel.swift in Sources */,
 				77130A3C2BCED86C00091758 /* Scanner_AppApp.swift in Sources */,
 				77130A4A2BCED8C200091758 /* ScanData.swift in Sources */,
 			);
@@ -368,6 +392,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		77B896AA2BD00CAB00098A45 /* ScannedContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				77B896AB2BD00CAB00098A45 /* ScannedContainer.xcdatamodel */,
+			);
+			currentVersion = 77B896AB2BD00CAB00098A45 /* ScannedContainer.xcdatamodel */;
+			path = ScannedContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 77130A302BCED86C00091758 /* Project object */;
 }
