@@ -35,7 +35,11 @@ struct ContentView: View {
                             VStack {
                                 ForEach(vm.savedEntities) { entity in
                                     NavigationLink(
-                                        destination: detailView(for: entity, geometry: geometry),
+                                        destination: detailView(for: entity, geometry: geometry)
+                                         
+                                            .background(.white)
+                                         
+                                        ,
                                         label: {
                                             listItem(for: entity)
                                         }
@@ -66,23 +70,30 @@ struct ContentView: View {
         VStack {
             ScrollView {
                 Spacer()
+                // Ensure to handle optional chaining for 'text'
                 Text(entity.text ?? "")
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
                     .padding(.bottom, 60)
                     .padding()
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
+        
+            .frame(width: geometry.size.width - 32, height: geometry.size.height)
+           
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.gray, lineWidth: 3)
             )
             .cornerRadius(12)
-            .padding()
             
+            
+
             Spacer()
-            
+
             Button {
-                UIPasteboard.general.string = entity.text
+                // Copy the text (ensure 'entity.text' is not nil)
+                UIPasteboard.general.string = entity.text ?? ""
                 showAlert = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     showAlert = false
@@ -91,6 +102,8 @@ struct ContentView: View {
                 copyTextButton()
             }
         }
+       
+       
     }
     
     func listItem(for entity: ScannedEntity) -> some View {
