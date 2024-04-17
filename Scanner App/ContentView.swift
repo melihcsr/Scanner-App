@@ -14,7 +14,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                
                 if texts.isEmpty {
+                    Spacer()
                     Text("No scan yet")
                         .font(.title)
                 } else {
@@ -30,20 +32,47 @@ struct ContentView: View {
                                 }
                             )
                         }
-                       
+                        
                     }
                 }
+                Spacer()
+                
+                
+                Button{
+                    self.showScannerSheet = true
+                }label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 80, height: 80)
+                            .shadow(color: .gray, radius: 10, x: 0, y: -5)
+                            .offset(y: -30)  // Lift the button up a bit and position it partially outside the BottomBar
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 4)
+                                    .offset(y: -30)
+                            )
+                        
+                        // Scanner icon
+                        Image(systemName: "qrcode.viewfinder")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.white)
+                            .offset(y: -30) // Align icon with button's offset
+                    }
+                }
+                
+                
+                
+                
             }
+            
             .navigationTitle("Scan OCR")
-            .navigationBarItems(trailing: Button(action: {
-                self.showScannerSheet = true
-            }, label: {
-                Image(systemName: "doc.text.viewfinder")
-                    .font(.title)
-            }))
             .sheet(isPresented: $showScannerSheet) {
                 makeScannerView()
             }
+          
+            
         }
     }
     
@@ -58,7 +87,7 @@ struct ContentView: View {
         })
     }
     
- 
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
