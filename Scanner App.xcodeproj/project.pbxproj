@@ -11,6 +11,9 @@
 		77130A3E2BCED86C00091758 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A3D2BCED86C00091758 /* ContentView.swift */; };
 		77130A402BCED86D00091758 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77130A3F2BCED86D00091758 /* Assets.xcassets */; };
 		77130A432BCED86D00091758 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77130A422BCED86D00091758 /* Preview Assets.xcassets */; };
+		77130A4A2BCED8C200091758 /* ScanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A492BCED8C200091758 /* ScanData.swift */; };
+		77130A4C2BCED8ED00091758 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A4B2BCED8ED00091758 /* ScannerView.swift */; };
+		77130A4E2BCED90100091758 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77130A4D2BCED90100091758 /* TextRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,10 @@
 		77130A3D2BCED86C00091758 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		77130A3F2BCED86D00091758 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77130A422BCED86D00091758 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		77130A492BCED8C200091758 /* ScanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanData.swift; sourceTree = "<group>"; };
+		77130A4B2BCED8ED00091758 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		77130A4D2BCED90100091758 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		77130A4F2BCED9A000091758 /* Scanner-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Scanner-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +58,14 @@
 		77130A3A2BCED86C00091758 /* Scanner App */ = {
 			isa = PBXGroup;
 			children = (
+				77130A4F2BCED9A000091758 /* Scanner-App-Info.plist */,
 				77130A3B2BCED86C00091758 /* Scanner_AppApp.swift */,
 				77130A3D2BCED86C00091758 /* ContentView.swift */,
 				77130A3F2BCED86D00091758 /* Assets.xcassets */,
 				77130A412BCED86D00091758 /* Preview Content */,
+				77130A492BCED8C200091758 /* ScanData.swift */,
+				77130A4B2BCED8ED00091758 /* ScannerView.swift */,
+				77130A4D2BCED90100091758 /* TextRecognizer.swift */,
 			);
 			path = "Scanner App";
 			sourceTree = "<group>";
@@ -138,7 +149,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				77130A3E2BCED86C00091758 /* ContentView.swift in Sources */,
+				77130A4C2BCED8ED00091758 /* ScannerView.swift in Sources */,
+				77130A4E2BCED90100091758 /* TextRecognizer.swift in Sources */,
 				77130A3C2BCED86C00091758 /* Scanner_AppApp.swift in Sources */,
+				77130A4A2BCED8C200091758 /* ScanData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,21 +289,26 @@
 				DEVELOPMENT_TEAM = 7ZSB6QA387;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Scanner-App-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app should use your camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Scanner-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Scanner-App-OCR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -304,21 +323,26 @@
 				DEVELOPMENT_TEAM = 7ZSB6QA387;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Scanner-App-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app should use your camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Scanner-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Scanner-App-OCR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
