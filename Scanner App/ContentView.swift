@@ -72,9 +72,6 @@ struct ContentView: View {
     func detailView(for entity: ScannedEntity, geometry: GeometryProxy) -> some View {
         VStack {
            
-            
-            
-            
             ScrollView {
                 Spacer()
                 Text(entity.text ?? "")
@@ -86,34 +83,50 @@ struct ContentView: View {
             .frame(width: geometry.size.width - 32, height: geometry.size.height)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray, lineWidth: 3)
+                    .stroke(Color.gray, lineWidth: 2)
             )
             .cornerRadius(12)
             .padding()
 
             Spacer()
 
-            Button {
-                UIPasteboard.general.string = entity.text ?? ""
-                showAlert = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showAlert = false
-                }
-            } label: {
-                HStack {
-                    Spacer()
-                    Image(systemName: showAlert ? "checkmark" : "doc.on.doc")
-                        .foregroundColor(.white)
-                    Text(showAlert ? "Text Copied" : "Copy Text")
-                    Spacer()
-                }
-                .padding()
-                .background(showAlert ? Color.green : Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 24)
-            }
+                    Button {
+                        UIPasteboard.general.string = entity.text ?? ""
+                        showAlert = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            showAlert = false
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: showAlert ? "checkmark" : "doc.on.doc")
+                                .foregroundColor(.white)
+                            
+                            Text(showAlert ?  "Text Copied" : "")
+                                .foregroundColor(.white)
+                                .fontWeight(.bold)
+                        }
+                        .frame(maxWidth: .infinity,maxHeight: 60)
+                    
+                        .background(
+                            
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color("main"),
+                                    Color("gradientEnd")
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                   
+                        .cornerRadius(12)
+                        .padding(.horizontal,16)
+                        .padding(.bottom,24)
+                        
+                       
+                    
+                    }
+                   
         }
     }
 
@@ -137,21 +150,21 @@ struct ContentView: View {
     func createScannerButton() -> some View {
         ZStack {
             Circle()
-                .fill(Color.blue)
+                .fill(Color("main"))
                 .frame(width: 80, height: 80)
                 .shadow(color: .gray, radius: 10, x: 0, y: -5)
-                .offset(y: -30)
+                .offset(y: -10)
                 .overlay(
                     Circle()
                         .stroke(Color.white, lineWidth: 4)
-                        .offset(y: -30)
+                        .offset(y: -10)
                 )
             
             Image(systemName: "qrcode.viewfinder")
                 .resizable()
                 .frame(width: 30, height: 30)
                 .foregroundColor(.white)
-                .offset(y: -30)
+                .offset(y: -10)
         }
     }
 
