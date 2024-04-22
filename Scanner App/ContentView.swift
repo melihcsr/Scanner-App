@@ -21,8 +21,8 @@ struct ContentView: View {
                         .foregroundColor(.black)
                     Spacer()
                 }
-                .padding(.leading, 16)
                 .padding(.top, 48)
+                .padding(.leading,16)
                 
                 if vm.savedEntities.isEmpty {
                     Spacer()
@@ -31,22 +31,24 @@ struct ContentView: View {
                         .foregroundColor(.black)
                 } else {
                     GeometryReader { geometry in
-                        ScrollView {
-                            VStack {
-                                ForEach(vm.savedEntities) { entity in
-                                    NavigationLink(
-                                        destination: detailView(for: entity, geometry: geometry)
-                                         
-                                            .background(.white)
-                                         
-                                        ,
-                                        label: {
-                                            listItem(for: entity)
-                                        }
-                                    )
-                                }
+                        List {
+                            ForEach(vm.savedEntities) { entity in
+                                NavigationLink(
+                                    destination: detailView(for: entity, geometry: geometry)
+                                        .background(Color.white),
+                                    label: {
+                                        listItem(for: entity)
+                                            .padding(.vertical, 8) // Add padding for space between items
+                                      
+                                    }
+                                )
                             }
+                            .onDelete(perform: deleteItem)
                         }
+                        .listStyle(PlainListStyle()) // Remove default separators
+                        .background(Color.white)
+                        .scrollContentBackground(.hidden)
+                        .environment(\.colorScheme, .light)
                     }
                 }
                 
@@ -64,88 +66,74 @@ struct ContentView: View {
                 makeScannerView()
             }
         }
+       
     }
     
     func detailView(for entity: ScannedEntity, geometry: GeometryProxy) -> some View {
         VStack {
+           
+            
+            
+            
             ScrollView {
                 Spacer()
-                // Ensure to handle optional chaining for 'text'
                 Text(entity.text ?? "")
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                     .foregroundColor(.black)
-                    .fontWeight(.bold)
                     .padding(.bottom, 60)
                     .padding()
             }
-        
             .frame(width: geometry.size.width - 32, height: geometry.size.height)
-           
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.gray, lineWidth: 3)
             )
             .cornerRadius(12)
-            
-            
+            .padding()
 
             Spacer()
 
             Button {
-                // Copy the text (ensure 'entity.text' is not nil)
                 UIPasteboard.general.string = entity.text ?? ""
                 showAlert = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     showAlert = false
                 }
             } label: {
-                copyTextButton()
+                HStack {
+                    Spacer()
+                    Image(systemName: showAlert ? "checkmark" : "doc.on.doc")
+                        .foregroundColor(.white)
+                    Text(showAlert ? "Text Copied" : "Copy Text")
+                    Spacer()
+                }
+                .padding()
+                .background(showAlert ? Color.green : Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 24)
             }
         }
-       
-       
     }
-    
+
     func listItem(for entity: ScannedEntity) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.blue.opacity(0.8))
-                .frame(height: 60)
-                .padding()
-                .shadow(color: .gray, radius: 5, x: 0, y: 5)
-            
+          
             HStack {
                 Text(entity.text ?? "")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .padding(.leading, 16)
-                    .lineLimit(1)
+                    .foregroundColor(.black)
                 
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.white)
-                    .padding(.trailing, 16)
+                    .font(.system(size: 18))
+                    .lineLimit(2)
             }
-            .padding(.horizontal)
-        }
+            .padding(.bottom,4)
+            .padding(.top,4)
+        
+         
+            
+        
     }
-    
-    func copyTextButton() -> some View {
-        HStack {
-            Spacer()
-            Image(systemName: showAlert ? "checkmark" : "doc.on.doc")
-                .foregroundColor(.white)
-            Text(showAlert ? "Text Copied" : "Copy Text")
-            Spacer()
-        }
-        .padding()
-        .background(showAlert ? Color.green : Color.blue)
-        .foregroundColor(.white)
-        .cornerRadius(8)
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
-    }
-    
+
     func createScannerButton() -> some View {
         ZStack {
             Circle()
@@ -166,22 +154,24 @@ struct ContentView: View {
                 .offset(y: -30)
         }
     }
-    
-    private func makeScannerView() -> ScannerView {
-        // ScannerView should be defined appropriately and imported.
-        // ScannerView is supposed to return scanned text per page.
+
+    func makeScannerView() -> ScannerView {
         ScannerView(completion: { textPerPage in
             if let outputText = textPerPage?.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines) {
-                // Create a new ScanData
                 let newScanData = ScanData(content: outputText)
-                // Save the new scan data to Core Data
                 vm.addScannedText(text: newScanData.content)
             }
             showScannerSheet = false
         })
     }
-}
 
+    func deleteItem(at offsets: IndexSet) {
+        for index in offsets {
+            let entityToDelete = vm.savedEntities[index]
+            vm.deleteScannedText(entity: entityToDelete)
+        }
+    }
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

@@ -43,6 +43,11 @@ class CoreDataViewModel: ObservableObject{
         
     }
     
+    func deleteScannedText(entity: ScannedEntity) {
+         container.viewContext.delete(entity)
+         saveData()
+     }
+    
     func addScannedText(text:String){
         
         let newText = ScannedEntity(context: container.viewContext)
